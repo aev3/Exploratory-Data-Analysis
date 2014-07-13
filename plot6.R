@@ -1,11 +1,10 @@
 # Exploratory Data Analysis - Assignment 2 - Q. #6
-# Ron Mashrouteh May 23, 2014
 
 # Load ggplot2 library
 library(ggplot2)
 
-NEI <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/summarySCC_PM25.rds")
-SCC <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/Source_Classification_Code.rds")
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
 
 NEI$year <- factor(NEI$year, levels=c('1999', '2002', '2005', '2008'))
 
@@ -30,10 +29,10 @@ DF <- as.data.frame(rbind(MD.DF, CA.DF))
 # in motor vehicle emissions?
 
 # Generate the graph in the same directory as the source code
-png('~/Exploratory_Data_Analysis/Assignment_2/plot6.png')
-
-ggplot(data=DF, aes(x=year, y=Emissions)) + geom_bar(aes(fill=year)) + guides(fill=F) + 
-    ggtitle('Total Emissions of Motor Vehicle Sources\nLos Angeles County, California vs. Baltimore City, Maryland') + 
+png('plot6.png')
+# 
+ggplot(data=DF, aes(year, Emissions)) + geom_bar(stat="identity", aes(fill=Emissions)) + guides(fill=F) + 
+    ggtitle('Total Emissions of Motor Vehicle Sources\nLos Angeles, CA vs. Baltimore, MD') + 
     ylab(expression('PM'[2.5])) + xlab('Year') + theme(legend.position='none') + facet_grid(. ~ City) + 
     geom_text(aes(label=round(Emissions,0), size=1, hjust=0.5, vjust=-1))
 

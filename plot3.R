@@ -1,12 +1,11 @@
 # Exploratory Data Analysis - Assignment 2 - Q. #3
-# Ron Mashrouteh May 23, 2014
 
 # Load ggplot2 library
 require(ggplot2)
 
 # Loading provided datasets - loading from local machine
-NEI <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/summarySCC_PM25.rds")
-SCC <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/Source_Classification_Code.rds")
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
 
 # Sampling
 NEI_sampling <- NEI[sample(nrow(NEI), size=5000, replace=F), ]
@@ -21,12 +20,12 @@ MD$year <- factor(MD$year, levels=c('1999', '2002', '2005', '2008'))
 # Use the ggplot2 plotting system to make a plot answer this question.
 
 # Generate the graph in the same directory as the source code
-png(filename='~/Exploratory_Data_Analysis/Assignment_2/plot3.png', width=800, height=500, units='px')
+png(filename='plot3.png', width=800, height=500, units='px')
 
-ggplot(data=MD, aes(x=year, y=log(Emissions))) + facet_grid(. ~ type) + guides(fill=F) +
+ggplot(data=MD, aes(x=year, y=log(Emissions))) + facet_grid(. ~ type) + guides(fill=FALSE) +
     geom_boxplot(aes(fill=type)) + stat_boxplot(geom ='errorbar') +
     ylab(expression(paste('Log', ' of PM'[2.5], ' Emissions'))) + xlab('Year') + 
-    ggtitle('Emissions per Type in Baltimore City, Maryland') +
+    ggtitle('Emissions per Type in Baltimore, MD') +
     geom_jitter(alpha=0.10)
 
 dev.off()

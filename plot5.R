@@ -1,12 +1,11 @@
 # Exploratory Data Analysis - Assignment 2 - Q. #5
-# Ron Mashrouteh May 23, 2014
 
 # Load ggplot2 library
 library(ggplot2)
 
 # Loading provided datasets - loading from local machine
-NEI <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/summarySCC_PM25.rds")
-SCC <- readRDS("~/Exploratory_Data_Analysis/Assignment_2/Source_Classification_Code.rds")
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
 
 NEI$year <- factor(NEI$year, levels=c('1999', '2002', '2005', '2008'))
 
@@ -20,11 +19,11 @@ colnames(MD.df) <- c('year', 'Emissions')
 # How have emissions from motor vehicle sources changed from 1999-2008 in Baltimore City? 
 
 # Generate the graph in the same directory as the source code
-png('~/Exploratory_Data_Analysis/Assignment_2/plot5.png')
-
-ggplot(data=MD.df, aes(x=year, y=Emissions)) + geom_bar(aes(fill=year)) + guides(fill=F) + 
-    ggtitle('Total Emissions of Motor Vehicle Sources in Baltimore City, Maryland') + 
+png('plot5.png')
+#
+ggplot(data=MD.df, aes(year, Emissions)) + geom_bar(stat="identity", aes(fill=Emissions)) + guides(fill=FALSE) + 
+    ggtitle('Total Emissions of Motor Vehicle Sources in Baltimore, MD') + 
     ylab(expression('PM'[2.5])) + xlab('Year') + theme(legend.position='none') + 
-    geom_text(aes(label=round(Emissions,0), size=1, hjust=0.5, vjust=2))
+    geom_text(aes(label=round(Emissions,0), size=1, hjust=0.5, vjust=-1))
 
 dev.off()
